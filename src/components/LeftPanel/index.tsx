@@ -78,8 +78,8 @@ const LeftPanel = () => {
     () => {
       (async function(){
         const { highlightData, uniqueArray } = await getFormattedWeatherData({ q: searchTerm, units: degree })
-           dispatch({ type: '@@highlight/SET_DATA', payload: highlightData })
-           dispatch({ type: '@@browseApp/SET_WEATHER', payload: uniqueArray })
+        dispatch({ type: '@@highlight/SET_DATA', payload: highlightData })
+        dispatch({ type: '@@browseApp/SET_WEATHER', payload: uniqueArray })
       })()
     },
     [searchTerm, degree],
@@ -90,7 +90,9 @@ const LeftPanel = () => {
   return (
     <div className={bemClass([blk])}>
       <div className={bemClass([blk, 'search-container'])}>
-        <svg onClick={searchHandler} viewBox="0 0 24 24" width="23" height="21" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
+        <svg onClick={searchHandler} viewBox="0 0 24 24" width="23"
+          height="21" stroke="currentColor" strokeWidth="2" fill="none"
+          strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
