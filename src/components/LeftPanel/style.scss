@@ -1,0 +1,55 @@
+.left-panel {
+  height: 100%;
+  width: 25%;
+  background-color: white;
+  padding: 30px 15px 15px 18px;
+
+  &__search-container {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: text;
+  }
+
+  &__input {
+    border: none;
+    outline: none;
+  }
+
+  &__clear {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-color: #f6f6f8;
+    right: 0;
+    cursor: pointer;
+  }
+  .icon-detais {
+    display: flex;
+    align-items: center; 
+    gap: 10px;     
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+  .city-image {
+    
+    margin-top: 25px;
+    height: 100px;
+    width: 220px;
+      
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 13px;
+      object-fit: cover
+    }
+  }
+    
+}

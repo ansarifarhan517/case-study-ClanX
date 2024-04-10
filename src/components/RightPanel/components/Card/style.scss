@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 8px;
+    &__degree {
+        display: flex;
+    }
+}

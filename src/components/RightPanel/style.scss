@@ -1,0 +1,12 @@
+.right-panel {
+    height: 100%;
+    width: 75%;
+    background-color: #f6f6f8;
+
+    &__week-card-container {
+        display: flex;
+        gap: 10px;
+        padding: 3px 30px;
+        overflow: scroll;
+    }
+}
