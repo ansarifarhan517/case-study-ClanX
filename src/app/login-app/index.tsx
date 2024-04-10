@@ -13,7 +13,7 @@ const LoginApp: React.FC = () => {
   return (
     <div className={blk}>
       <div className={bemClass([blk, 'content'])}>
-        <h2 className={bemClass([blk, 'title'])}>Login into LogiCMS</h2>
+        <h2 className={bemClass([blk, 'title'])}>Login into ClanX</h2>
         <TextInput type="text" label="Username" />
         <TextInput label="Password" type="password" />
         <div className={bemClass([blk, 'footer'])}>
