@@ -1,9 +1,9 @@
 import { bemClass } from '@utils'
 import { DateTime } from 'luxon'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import './style.scss'
 import { useDispatch } from 'react-redux'
-import useDebounce from '@utils/useDebounce'
+// import useDebounce from '@utils/useDebounce'
 import { get } from '@api'
 import { useTypedSelector } from '../../redux/rootReducers'
 import { iconUrlFromCode } from '@components/RightPanel/components/Card'
@@ -17,7 +17,7 @@ const LeftPanel = () => {
   const dispatch = useDispatch()
   const degree = useTypedSelector((state) => state.header.degree)
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const debouncedValue = useDebounce(searchTerm, 300)
+  // const debouncedValue = useDebounce(searchTerm, 300)
   const weatherData = useTypedSelector((state) => state.browseApp.weatherData)
   const highlightData = useTypedSelector((state) => state.highlights.data)
 
@@ -47,21 +47,21 @@ const LeftPanel = () => {
   console.log(filteredWeatherData, 'left')
 
 
-  useEffect(() => {
-    if (debouncedValue) {
-      (async function () {
-        try {
-          const { highlightData, uniqueArray } = await getFormattedWeatherData({ q: debouncedValue, units: degree })
-          dispatch({ type: '@@highlight/SET_DATA', payload: highlightData })
-          dispatch({ type: '@@browseApp/SET_WEATHER', payload: uniqueArray })
-        } catch (error) {
-          console.error('API request failed:', error)
-          alert('Invalid city name.')
-        }
-      })()
-    }
-    dispatch({ type: '@@LeftPanel/SET_CITY', payload: debouncedValue })
-  }, [debouncedValue])
+  // useEffect(() => {
+  //   if (debouncedValue) {
+  //     (async function () {
+  //       try {
+  //         const { highlightData, uniqueArray } = await getFormattedWeatherData({ q: debouncedValue, units: degree })
+  //         dispatch({ type: '@@highlight/SET_DATA', payload: highlightData })
+  //         dispatch({ type: '@@browseApp/SET_WEATHER', payload: uniqueArray })
+  //       } catch (error) {
+  //         console.error('API request failed:', error)
+  //         alert('Invalid city name.')
+  //       }
+  //     })()
+  //   }
+  //   dispatch({ type: '@@LeftPanel/SET_CITY', payload: debouncedValue })
+  // }, [debouncedValue])
 
   const onChangeHandler = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,23 +74,36 @@ const LeftPanel = () => {
     setSearchTerm('')
   }, [])
 
+  const searchHandler = useCallback(
+    () => {
+      (async function(){
+        const { highlightData, uniqueArray } = await getFormattedWeatherData({ q: searchTerm, units: degree })
+           dispatch({ type: '@@highlight/SET_DATA', payload: highlightData })
+           dispatch({ type: '@@browseApp/SET_WEATHER', payload: uniqueArray })
+      })()
+    },
+    [searchTerm, degree],
+  )
+
+
+
   return (
     <div className={bemClass([blk])}>
       <div className={bemClass([blk, 'search-container'])}>
-        <svg viewBox="0 0 24 24" width="23" height="21" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
+        <svg onClick={searchHandler} viewBox="0 0 24 24" width="23" height="21" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <input className={bemClass([blk, 'input'])} type="text" placeholder=" Enter Places" onChange={onChangeHandler} value={searchTerm} />
         <div className={bemClass([blk, 'clear'])} onClick={onclear}>
-                    &#x2715;
+          &#x2715;
         </div>
       </div>
 
       <div className="weather-data">
         {filteredWeatherData.length > 0 && filteredWeatherData.map(({ time, icon, degree }) => (
           <div key={time} className="weather-day">
-            <img src={iconUrlFromCode(icon)} alt="" style={{ height: '210px' ,width:'200px' }}/>
+            <img src={iconUrlFromCode(icon)} alt="" style={{ height: '210px', width: '200px' }} />
             <h1>
               {degree}
               <sup>&#xb0; C</sup>
@@ -107,7 +120,7 @@ const LeftPanel = () => {
             </label>
 
             <div className="city-image">
-              <img src={CityImage} alt="city"/>
+              <img src={CityImage} alt="city" />
             </div>
           </div>
         ))}
