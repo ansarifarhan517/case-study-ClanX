@@ -4,16 +4,13 @@ import '../sass/global.scss'
 
 const BrowseApp = lazy(async () => await import(/* webpackChunkName: "browseApp" */'./browse-app'))
 
-const App: React.FC = () => {
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Router basename="/">
-        {/* { isUserLoggedIn ? <BrowseApp /> : <LoginApp />} */}
-        <BrowseApp />
-      </Router>
-    </Suspense>
-  )
-}
+const App: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Router basename="/">
+      {/* { isUserLoggedIn ? <BrowseApp /> : <LoginApp />} */}
+      <BrowseApp />
+    </Router>
+  </Suspense>
+)
 
 export default App
